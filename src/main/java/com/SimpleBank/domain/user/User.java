@@ -1,5 +1,6 @@
 package com.SimpleBank.domain.user;
 
+import com.SimpleBank.dtos.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,8 @@ public class User {
 
     private String FirstName;
 
+    private String LastName;
+
     @Column(unique = true)
     private Long document;
 
@@ -32,4 +35,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDTO data){
+        this.FirstName = data.firstName();
+        this.LastName = data.lastName();
+        this.document = data.document();
+        this.email = data.email();
+        this.password = data.password();
+        this.balance = data.balance();
+    }
 }
