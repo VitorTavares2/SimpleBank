@@ -2,11 +2,13 @@ package com.SimpleBank.services;
 
 import com.SimpleBank.domain.user.User;
 import com.SimpleBank.domain.user.UserType;
+import com.SimpleBank.dtos.UserDTO;
 import com.SimpleBank.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -27,7 +29,17 @@ public class UserService {
         return this.repository.findById(id).orElseThrow(() -> new RuntimeException("User not found."));
     }
 
+    public User createUser(UserDTO data){
+        User newUser = new User(data);
+        this.repository.save(newUser);
+        return newUser;
+    }
+
     public void saveUser(User user) { //saves user balance changes
         this.repository.save(user);
+    }
+
+    public List<User> getAllUsers() {
+        return this.repository.findAll();
     }
 }
